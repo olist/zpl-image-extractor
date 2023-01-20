@@ -51,3 +51,7 @@ bump_binary: bump_version pre-clean
 	pyinstaller --onefile --name $(PROJECT_NAME) $(PROJECT_NAME)/cli.py
 	@tar -C dist/ -czf dist/$(PROJECT_NAME).$(version).tar.gz $(PROJECT_NAME)
 	@make post-clean
+
+release: bump_binary
+	git tag -a v$(version) -m "Creation of v$(version)"
+	git push origin v$(version)
